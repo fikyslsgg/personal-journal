@@ -1,6 +1,6 @@
 import './App.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/Header/Header';
 import JournalAddButton from './components/JournalAddButton/JournalAddButton';
 import JournalForm from './components/JournalForm/JournalForm';
@@ -9,9 +9,21 @@ import Body from './layouts/Body/Body';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 
 function App() {
-	const INITIAL_DATA = [];
 
-	const [items, setItems] = useState(INITIAL_DATA);
+	const [items, setItems] = useState([]);
+
+	useEffect(()=>{
+	const data = JSON.parse(localStorage.getItem('data'));
+	
+	if (data) {
+		setItems(data.map(item => ({
+			...item,
+			date: new Date(item.date)
+		})));
+	}
+	},[]);
+
+
 
 	const addItem = item =>
 		setItems(oldItems => [
