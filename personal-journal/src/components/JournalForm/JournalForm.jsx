@@ -21,7 +21,7 @@ function JournalForm({ onSubmit }) {
 			case !isValid.date:
 				dateRef.current.focus();
 				break;
-      case !isValid.text:
+			case !isValid.text:
         textRef.current.focus();
         break;
 		}
@@ -63,9 +63,9 @@ function JournalForm({ onSubmit }) {
 				<Input
 					type='text'
 					ref={titleRef}
-          appearance='title'
+					appearance='title'
 					onChange={onChange}
-          isValid={isValid.title}
+					isValid={isValid.title}
 					name='title'
 					value={values.title}
 					className={cn(styles['input-title'], {
@@ -81,7 +81,7 @@ function JournalForm({ onSubmit }) {
 				<Input
 					id='date'
 					type='date'
-          isValid={isValid.date}
+					isValid={isValid.date}
 					ref={dateRef}
 					onChange={onChange}
 					name='date'
