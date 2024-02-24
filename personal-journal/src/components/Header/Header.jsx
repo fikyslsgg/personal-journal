@@ -12,7 +12,7 @@ function Header() {
 	}, []);
 	return (
 		<>
-			<Logo image={logos[0]} />
+			<Logo image={logos[logoIndex]} />
 			<SelectUser />
 			<Button onClick={toggleLogo}>Сменить логотип</Button>
 		</>
