@@ -1,19 +1,20 @@
 import cn from 'classnames';
-import { useEffect, useReducer, useRef } from 'react';
+import { useContext, useEffect, useReducer, useRef } from 'react';
+import { UserContext } from '../../context/user.context';
 import Button from '../Button/Button';
+import Input from '../Input/Input';
 import styles from './JournalForm.module.css';
 import { INITIAL_STATE, formReducer } from './JournalForm.state';
-import Input from '../Input/Input';
 
 function JournalForm({ onSubmit }) {
-
 	const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
-	const {isValid, isFormReadyToSubmit, values} = formState;
+	const { isValid, isFormReadyToSubmit, values } = formState;
 	const titleRef = useRef();
 	const dateRef = useRef();
 	const textRef = useRef();
+	const { userId } = useContext(UserContext);
 
-	const focusError = (isValid)=>{
+	const focusError = isValid => {
 		switch (true) {
 			case !isValid.title:
 				titleRef.current.focus();
@@ -22,39 +23,48 @@ function JournalForm({ onSubmit }) {
 				dateRef.current.focus();
 				break;
 			case !isValid.text:
-        textRef.current.focus();
-        break;
+				textRef.current.focus();
+				break;
 		}
 	};
 
-	useEffect(()=>{
+	useEffect(() => {
 		let timerId;
-		if(!isValid.title || !isValid.date || !isValid.text){
+		if (!isValid.title || !isValid.date || !isValid.text) {
 			focusError(isValid);
-			timerId = setTimeout(()=> {
-				dispatchForm({type:'RESET_VALIDITY'});
+			timerId = setTimeout(() => {
+				dispatchForm({ type: 'RESET_VALIDITY' });
 			}, 2000);
 		}
-		return ()=> {
+		return () => {
 			clearTimeout(timerId);
 		};
-	},[isValid]);
+	}, [isValid]);
 
-	useEffect(()=>{
-		if(isFormReadyToSubmit){
+	useEffect(() => {
+		if (isFormReadyToSubmit) {
 			onSubmit(values);
-			dispatchForm({type:'CLEAR'});
+			dispatchForm({ type: 'CLEAR' });
 		}
+	}, [isFormReadyToSubmit, values, onSubmit]);
 
-	},[isFormReadyToSubmit, values, onSubmit]);
+	useEffect(() => {
+		dispatchForm({
+			type: 'SET_VALUE',
+			payload: { userId },
+		});
+	}, [userId]);
 
-	const onChange = (e)=>{
-		dispatchForm({type:'SET_VALUE', payload:{[e.target.name]:e.target.value}});
+	const onChange = e => {
+		dispatchForm({
+			type: 'SET_VALUE',
+			payload: { [e.target.name]: e.target.value },
+		});
 	};
 
 	const addJournalItem = e => {
 		e.preventDefault();
-		dispatchForm({type:'SUBMIT'});
+		dispatchForm({ type: 'SUBMIT' });
 	};
 
 	return (
@@ -69,7 +79,7 @@ function JournalForm({ onSubmit }) {
 					name='title'
 					value={values.title}
 					className={cn(styles['input-title'], {
-						[styles['invalid']]: !formState.isValid.title
+						[styles['invalid']]: !formState.isValid.title,
 					})}
 				/>
 			</div>
@@ -94,24 +104,25 @@ function JournalForm({ onSubmit }) {
 					<span>Метки</span>
 				</label>
 				<Input
-				id='tag' 
-				type='text' 
-				onChange={onChange}
-				name='tag' 
-				value={values.tag} 
+					id='tag'
+					type='text'
+					onChange={onChange}
+					name='tag'
+					value={values.tag}
 				/>
 			</div>
 			<textarea
 				name='text'
 				ref={textRef}
-        className={cn(styles['input'], {[styles['invalid']]: !isValid.text})}
+				className={cn(styles['input'], {
+					[styles['invalid']]: !isValid.text,
+				})}
 				value={values.text}
 				onChange={onChange}
 				id=''
 				cols='30'
 				rows='10'
 			></textarea>
-
 			<Button text='Сохранить' />
 		</form>
 	);
