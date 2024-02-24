@@ -21,7 +21,6 @@ function mapItems(items) {
 
 function App() {
 	const [items, setItems] = useLocalStorage('data');
-
 	const addItem = item => {
 		setItems([
 			...mapItems(items),
