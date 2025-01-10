@@ -75,6 +75,7 @@ function JournalForm({ onSubmit, data, onDelete }) {
 
 	const deleteJournalItem = () => {
 		onDelete(data.id);
+		console.log(data.id);
 		dispatchForm({ type: 'CLEAR' });
 		dispatchForm({ type: 'SET_VALUE', payload: { userId } });
 	};
@@ -94,15 +95,14 @@ function JournalForm({ onSubmit, data, onDelete }) {
 						[styles['invalid']]: !formState.isValid.title,
 					})}
 				/>
-				{data?.id && (
-					<button
-						className={styles.delete}
-						type='button'
-						onClick={deleteJournalItem}
-					>
-						<img src='../../../public/frame.svg' alt='Кнопка удалить' />
-					</button>
-				)}
+
+				<button
+					className={styles.delete}
+					type='button'
+					onClick={deleteJournalItem}
+				>
+					<img src='/public/frame.svg' alt='Кнопка удалить' />
+				</button>
 			</div>
 			<div className={styles['form-row']}>
 				<label htmlFor='date' className={styles['form-label']}>
