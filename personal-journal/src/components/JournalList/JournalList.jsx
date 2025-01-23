@@ -20,7 +20,12 @@ function JournalList({ items, setItem }) {
 	);
 
 	if (items.length == 0) {
-		return <p>Записей пока нет, добавьте первую</p>;
+		return (
+			<p>
+				Записей пока нет,
+				<br /> добавьте первую
+			</p>
+		);
 	}
 
 	return (
