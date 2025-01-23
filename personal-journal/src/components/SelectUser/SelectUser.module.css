@@ -1,6 +1,7 @@
 .select {
-	padding: 10px;
+	padding: 15px;
 	background: #323232;
-	font-size: 24px;
+	font-size: 18px;
 	border: 1px solid #323232;
+	border-radius: 5px;
 }
