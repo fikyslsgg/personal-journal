@@ -10,3 +10,10 @@
 	line-height: normal;
 	border-radius: 5px;
 }
+
+@media (max-width: 768px) {
+	.journal-add {
+		text-align: center;
+		font-size: 14px;
+	}
+}
