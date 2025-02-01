@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { useContext, useEffect, useReducer, useRef } from 'react';
+import { BASE_URL } from '../../../api/api';
 import { UserContext } from '../../context/user.context';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
@@ -101,12 +102,12 @@ function JournalForm({ onSubmit, data, onDelete }) {
 					type='button'
 					onClick={deleteJournalItem}
 				>
-					<img src='/public/frame.svg' alt='Кнопка удалить' />
+					<img src={`${BASE_URL}/frame.svg `} alt='Кнопка удалить' />
 				</button>
 			</div>
 			<div className={styles['form-row']}>
 				<label htmlFor='date' className={styles['form-label']}>
-					<img src='/calendar.svg' alt='Иконка календаря' />
+					<img src={`${BASE_URL}/calendar.svg`} alt='Иконка календаря' />
 					<span>Дата</span>
 				</label>
 				<Input
@@ -123,7 +124,7 @@ function JournalForm({ onSubmit, data, onDelete }) {
 			</div>
 			<div className={styles['form-row']}>
 				<label htmlFor='tag' className={styles['form-label']}>
-					<img src='/fold.svg' alt='Иконка папки' />
+					<img src={`${BASE_URL}/fold.svg`} alt='Иконка папки' />
 					<span>Метки</span>
 				</label>
 				<Input
