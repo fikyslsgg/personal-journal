@@ -50,7 +50,8 @@ cd personal-journal
 ```bash
 npm run dev
 ```
-Контакты
+## Контакты
+
 Если у вас появились вопросы или идеи для улучшения, обращайтесь:
 
 Name: Yury Sidyakin
@@ -58,5 +59,3 @@ Name: Yury Sidyakin
 Email: yurysidyakin.dev@yandex.ru
 
 Благодарю за проявленный интерес к моему проекту!
-
-
